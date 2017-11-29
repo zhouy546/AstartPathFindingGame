@@ -12,6 +12,10 @@ public class theGrid : MonoBehaviour {
     public Vector2 gridWorldSize;
     public float nodeRadius;
 
+    public int questionNumber = 0;
+    public float QuestionRate;
+
+    public character mycharacter;
     void CreateGride(Vector2 _gridWorldSize) {
         NodeaPool = new Node[(int)gridWorldSize.x, (int)gridWorldSize.y];
 
@@ -31,6 +35,13 @@ public class theGrid : MonoBehaviour {
                 node.gCost = 0;
                 node.hCost = 0;
                 node.walkable = true;
+
+                if (i != mycharacter.x&&j != mycharacter.y){
+                GenerateQuestion(node);
+                }
+              
+
+
                 NodeaPool[i, j] = node;
                // NodeaPool.Add(node);
             }
@@ -79,5 +90,15 @@ public class theGrid : MonoBehaviour {
         int y = _y;
        // Debug.Log(NodeaPool[3, 3].walkable);
         return NodeaPool[x, y];
+    }
+
+    public void GenerateQuestion(Node _node)
+    {
+            _node.isQuestion = StaticFunction.randomTrueAndFalse(QuestionRate);
+          //  Debug.Log(_node.isQuestion);
+            if (_node.isQuestion)
+            {
+            questionNumber++;
+            }   
     }
 }

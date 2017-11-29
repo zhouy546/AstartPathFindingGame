@@ -33,6 +33,22 @@ public class Node:MonoBehaviour{
                 }
     }
 
+    private bool _isQuestion;
+    public bool isQuestion {
+        get { return _isQuestion; }
+        set
+        {
+            _isQuestion = value;
+            if (this._isQuestion == true)
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else {
+                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
+    }
+
 
     public Node(bool _walkable, Vector3 _worldPos,string _Name, int _Weight) {
         Name = _Name;

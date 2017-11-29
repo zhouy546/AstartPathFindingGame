@@ -7,8 +7,6 @@ public class character : MonoBehaviour {
 
     [SerializeField]
     AstartPathFinding astartpathfind;
-   // [SerializeField]
-    //IsometricManger isometricmanger;
     int index = 0;
     [SerializeField]
     bool inAnimation;
@@ -32,7 +30,7 @@ public class character : MonoBehaviour {
                         string[] Row_Column = hit.collider.name.Split('_');
                         Targetx = int.Parse(Row_Column[0]);
                         Targety = int.Parse(Row_Column[1]);
-                        Debug.Log(Targetx + "_" + Targety);
+//                        Debug.Log(Targetx + "_" + Targety);
                         astartpathfind.FindPath(x, y, Targetx, Targety);
                         Movement();
                     }
@@ -48,15 +46,17 @@ public class character : MonoBehaviour {
         }
 
         if (path != null) {
-            if (index < path.Count)
+            if (index <1)
             {
                 Debug.Log(index);
                 Transform target = path[index].gameObject.transform;
                 inAnimation = true;
                 LeanTween.move(gameObject, target, .2f).setOnComplete(delegate ()
-                {           
+                {                 
                     x = path[index].x;
                     y = path[index].y;
+                    //have to after refresh position
+                    Debug.Log("am i stand on question" + questionCheck());
                     index++;
                     Movement();
                     
@@ -69,6 +69,10 @@ public class character : MonoBehaviour {
             }
 
         }
+    }
+
+    bool questionCheck() {
+        return theGrid.NodeaPool[x, y].isQuestion;
     }
 
 }
